@@ -19,4 +19,9 @@ public class CategoryServiceImpl implements CategoryService {
     public void createCategory(Category category) {
         categories.add(category);
     }
+
+    @Override
+    public boolean deleteCategory(long categoryId) {
+        return categories.removeIf(category -> category.getCategoryId() == categoryId);
+    }
 }

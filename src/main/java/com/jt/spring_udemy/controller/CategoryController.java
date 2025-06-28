@@ -30,4 +30,12 @@ public class CategoryController {
         categoryService.createCategory(category);
         return "Category created";
     }
+
+    @DeleteMapping("{categoryId}")
+    public String deleteCategory(@PathVariable long categoryId) {
+        if(categoryService.deleteCategory(categoryId)) {
+            return "Category deleted";
+        }
+        return "Category not found";
+    }
 }

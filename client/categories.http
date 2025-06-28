@@ -13,3 +13,8 @@ Content-Type: application/json
 }
 
 ###
+
+### DELETE request to remove category by id
+DELETE {{baseUrl}}/categories/1
+
+###
