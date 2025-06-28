@@ -1,21 +1,23 @@
 package com.jt.spring_udemy;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class HelloController {
 
     @GetMapping("/hello")
-    public String sayHello() {
-        return "Hello Spring World!";
+    public HelloResponse sayHello() {
+        return new HelloResponse("Hello Spring World!");
     }
 
     @PostMapping("/hello")
-    public String helloPost(@RequestBody String name) {
-        return "Hello " + name;
+    public HelloResponse helloPost(@RequestBody String name) {
+        return new HelloResponse("Hello " + name + "!");
+    }
+
+    @GetMapping("/hello/{name}")
+    public HelloResponse helloPostWithPathParams(@PathVariable String name) {
+        return new HelloResponse("Hello " + name + "!");
     }
 
 }

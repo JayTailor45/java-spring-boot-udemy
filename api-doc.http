@@ -1,7 +1,15 @@
 ### GET request to example server
-POST {{baseUrl}}/hello
+GET {{baseUrl}}/hello
+###
 
-{
-  "nanme":"hello"
-}
+### POST request to example server
+POST {{baseUrl}}/hello
+Content-Type: application/json
+Accept: application/json
+
+"Jay"
+###
+
+### GET request to example server
+GET {{baseUrl}}/hello/test123
 ###
