@@ -2,7 +2,10 @@ package com.jt.spring_udemy.controller;
 
 import com.jt.spring_udemy.model.Category;
 import com.jt.spring_udemy.service.CategoryService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -32,10 +35,11 @@ public class CategoryController {
     }
 
     @DeleteMapping("{categoryId}")
-    public String deleteCategory(@PathVariable long categoryId) {
-        if(categoryService.deleteCategory(categoryId)) {
-            return "Category deleted";
+    public ResponseEntity<String> deleteCategory(@PathVariable long categoryId) {
+        try {
+            return new ResponseEntity<>(categoryService.deleteCategory(categoryId), HttpStatus.OK);
+        } catch (ResponseStatusException e) {
+            return new ResponseEntity<>(e.getReason(), e.getStatusCode());
         }
-        return "Category not found";
     }
 }

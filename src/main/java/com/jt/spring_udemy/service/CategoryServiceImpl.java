@@ -1,7 +1,9 @@
 package com.jt.spring_udemy.service;
 
 import com.jt.spring_udemy.model.Category;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public boolean deleteCategory(long categoryId) {
-        return categories.removeIf(category -> category.getCategoryId() == categoryId);
+    public String deleteCategory(long categoryId) {
+        boolean isDeleted = categories.removeIf(category -> category.getCategoryId() == categoryId);
+        if(!isDeleted){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
+        }
+        return "Category deleted successfully";
     }
 }
