@@ -1,25 +1,31 @@
 package com.jt.spring_udemy.controller;
 
 import com.jt.spring_udemy.model.Category;
+import com.jt.spring_udemy.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("categories")
 public class CategoryController {
 
-    private List<Category> categories = new ArrayList<>();
+    private CategoryService categoryService;
+
+
+    CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
 
     @GetMapping
     public List<Category> getCategories() {
-        return categories;
+        return categoryService.getCategories();
     }
 
     @PostMapping
     public String createCategory(@RequestBody Category category) {
-        categories.add(category);
+        categoryService.createCategory(category);
         return "Category created";
     }
 }
