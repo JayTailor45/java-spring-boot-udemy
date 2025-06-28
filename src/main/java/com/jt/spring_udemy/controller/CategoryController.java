@@ -11,6 +11,7 @@ import java.util.List;
 public class CategoryController {
 
     private CategoryService categoryService;
+    private long nextId = 1;
 
 
     CategoryController(CategoryService categoryService) {
@@ -25,6 +26,7 @@ public class CategoryController {
 
     @PostMapping
     public String createCategory(@RequestBody Category category) {
+        category.setCategoryId(nextId++);
         categoryService.createCategory(category);
         return "Category created";
     }
