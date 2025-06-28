@@ -1,0 +1,7 @@
+### GET request to example server
+POST {{baseUrl}}/hello
+
+{
+  "nanme":"hello"
+}
+###
