@@ -18,3 +18,12 @@ Content-Type: application/json
 DELETE {{baseUrl}}/categories/1
 
 ###
+
+### PUT request to update category
+PUT {{baseUrl}}/categories/1
+Content-Type: application/json
+
+{
+  "categoryId": 1,
+  "categoryName": "Playing yo yo"
+}
