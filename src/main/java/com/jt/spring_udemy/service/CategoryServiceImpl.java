@@ -1,12 +1,11 @@
 package com.jt.spring_udemy.service;
 
+import com.jt.spring_udemy.exceptions.APIException;
 import com.jt.spring_udemy.exceptions.ResourceNotFoundException;
 import com.jt.spring_udemy.model.Category;
 import com.jt.spring_udemy.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -23,6 +22,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void createCategory(Category category) {
+        Category oldCategory = categoryRepository.findByCategoryName(category.getCategoryName());
+        if (oldCategory != null) {
+            throw new APIException(String.format("Category with the name %s already exists", category.getCategoryName()));
+        }
         categoryRepository.save(category);
     }
 
