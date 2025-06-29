@@ -23,15 +23,16 @@ public class CategoryController {
 
 
     @GetMapping
-    public List<Category> getCategories() {
-        return categoryService.getCategories();
+    public ResponseEntity<List<Category>> getCategories() {
+        List<Category> categories = categoryService.getCategories();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
     @PostMapping
-    public String createCategory(@RequestBody Category category) {
+    public ResponseEntity<String> createCategory(@RequestBody Category category) {
         category.setCategoryId(nextId++);
         categoryService.createCategory(category);
-        return "Category created";
+        return new ResponseEntity<>("Category created", HttpStatus.CREATED);
     }
 
     @DeleteMapping("{categoryId}")
