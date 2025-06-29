@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -28,28 +27,19 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public String deleteCategory(long categoryId) {
-        try {
-            categoryRepository.deleteById(categoryId);
-            return "Category deleted successfully";
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
-        }
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
+        categoryRepository.delete(category);
+        return "Category deleted successfully";
     }
 
     @Override
     public Category updateCategory(long categoryId, Category category) {
-        try {
-            Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
-            if(optionalCategory.isPresent()){
-                Category oldCategory = optionalCategory.get();
-                oldCategory.setCategoryName(category.getCategoryName());
-                categoryRepository.save(oldCategory);
-                return oldCategory;
-            } else {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
-            }
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
-        }
+        Category oldCategory = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
+
+        oldCategory.setCategoryName(category.getCategoryName());
+        categoryRepository.save(oldCategory);
+        return oldCategory;
     }
 }
