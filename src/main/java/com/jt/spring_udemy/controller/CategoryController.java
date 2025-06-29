@@ -1,5 +1,6 @@
 package com.jt.spring_udemy.controller;
 
+import com.jt.spring_udemy.config.AppConstants;
 import com.jt.spring_udemy.payload.CategoryDTO;
 import com.jt.spring_udemy.payload.CategoryResponse;
 import com.jt.spring_udemy.service.CategoryService;
@@ -23,8 +24,8 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<CategoryResponse> getCategories(
-            @RequestParam(name = "pageNumber", defaultValue = "1") Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "20") Integer pageSize
+            @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER) Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE) Integer pageSize
         ) {
         CategoryResponse categories = categoryService.getCategories(pageNumber, pageSize);
         return new ResponseEntity<>(categories, HttpStatus.OK);
