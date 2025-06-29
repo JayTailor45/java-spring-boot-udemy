@@ -1,6 +1,5 @@
 package com.jt.spring_udemy.controller;
 
-import com.jt.spring_udemy.model.Category;
 import com.jt.spring_udemy.payload.CategoryDTO;
 import com.jt.spring_udemy.payload.CategoryResponse;
 import com.jt.spring_udemy.service.CategoryService;
@@ -9,13 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("categories")
 public class CategoryController {
 
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
 
     CategoryController(CategoryService categoryService) {
