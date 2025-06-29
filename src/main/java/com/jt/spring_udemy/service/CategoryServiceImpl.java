@@ -8,6 +8,9 @@ import com.jt.spring_udemy.payload.CategoryResponse;
 import com.jt.spring_udemy.repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,13 +25,25 @@ public class CategoryServiceImpl implements CategoryService {
     private ModelMapper modelMapper;
 
     @Override
-    public CategoryResponse getCategories() {
-        List<Category> categories = categoryRepository.findAll();
+    public CategoryResponse getCategories(Integer pageNumber, Integer pageSize) {
+        Pageable pageDetails = PageRequest.of(pageNumber-1, pageSize);
+
+        Page<Category> categoryPage = categoryRepository.findAll(pageDetails);
+
+        List<Category> categories = categoryPage.getContent();
+
         List<CategoryDTO> categoriesDTOs = categories.stream()
                 .map(category -> modelMapper.map(category, CategoryDTO.class))
                 .toList();
+
         CategoryResponse categoryResponse = new CategoryResponse();
         categoryResponse.setContent(categoriesDTOs);
+        categoryResponse.setPageNumber(pageDetails.getPageNumber());
+        categoryResponse.setPageSize(pageDetails.getPageSize());
+        categoryResponse.setTotalElements(categoryPage.getTotalElements());
+        categoryResponse.setTotalPages(categoryPage.getTotalPages());
+        categoryResponse.setLastPage(categoryPage.isLast());
+
         return categoryResponse;
     }
 

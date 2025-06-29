@@ -1,5 +1,5 @@
 ### GET request to retrieve categories
-GET {{baseUrl}}/categories
+GET {{baseUrl}}/categories?pageNumber=1&pageSize=10
 
 ###
 
