@@ -1,5 +1,6 @@
 package com.jt.spring_udemy.service;
 
+import com.jt.spring_udemy.exceptions.ResourceNotFoundException;
 import com.jt.spring_udemy.model.Category;
 import com.jt.spring_udemy.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public String deleteCategory(long categoryId) {
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
         categoryRepository.delete(category);
         return "Category deleted successfully";
     }
@@ -36,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category updateCategory(long categoryId, Category category) {
         Category oldCategory = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
 
         oldCategory.setCategoryName(category.getCategoryName());
         categoryRepository.save(oldCategory);
