@@ -1,12 +1,11 @@
 package com.jt.spring_udemy.service;
 
-import com.jt.spring_udemy.model.Category;
-
-import java.util.List;
+import com.jt.spring_udemy.payload.CategoryDTO;
+import com.jt.spring_udemy.payload.CategoryResponse;
 
 public interface CategoryService {
-    List<Category> getCategories();
-    void createCategory(Category category);
-    String deleteCategory(long categoryId);
-    Category updateCategory(long categoryId, Category category);
+    CategoryResponse getCategories();
+    CategoryDTO createCategory(CategoryDTO categoryDTO);
+    CategoryDTO deleteCategory(long categoryId);
+    CategoryDTO updateCategory(long categoryId, CategoryDTO categoryDTO);
 }
