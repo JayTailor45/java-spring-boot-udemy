@@ -8,8 +8,7 @@ POST {{baseUrl}}/categories
 Content-Type: application/json
 
 {
-    "categoryId": 1,
-    "categoryName": "Playing Piano"
+    "categoryName": "Playing Cricket"
 }
 
 ###
