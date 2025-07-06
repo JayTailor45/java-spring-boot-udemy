@@ -1,17 +1,28 @@
 package com.jt.spring_udemy.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SocialGroup {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToMany(mappedBy = "groups")
-    private Set<SocialUser> users = new HashSet<>();
+    private Set<SocialUser> socialUsers = new HashSet<>();
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

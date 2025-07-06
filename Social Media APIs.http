@@ -1,0 +1,4 @@
+### GET request to users server
+GET http://localhost:8080/social/users
+
+###
